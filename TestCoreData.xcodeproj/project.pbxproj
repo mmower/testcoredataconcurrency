@@ -1,0 +1,625 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C9CC9795147FE66600EADF4F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9CC9794147FE66600EADF4F /* Cocoa.framework */; };
+		C9CC979F147FE66600EADF4F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9CC979D147FE66600EADF4F /* InfoPlist.strings */; };
+		C9CC97A1147FE66600EADF4F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CC97A0147FE66600EADF4F /* main.m */; };
+		C9CC97A5147FE66600EADF4F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C9CC97A3147FE66600EADF4F /* Credits.rtf */; };
+		C9CC97A8147FE66600EADF4F /* SFAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CC97A7147FE66600EADF4F /* SFAppDelegate.m */; };
+		C9CC97AB147FE66600EADF4F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9CC97A9147FE66600EADF4F /* MainMenu.xib */; };
+		C9CC97AE147FE66600EADF4F /* TestCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C9CC97AC147FE66600EADF4F /* TestCoreData.xcdatamodeld */; };
+		C9CC97B6147FE66600EADF4F /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9CC97B5147FE66600EADF4F /* SenTestingKit.framework */; };
+		C9CC97B7147FE66600EADF4F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9CC9794147FE66600EADF4F /* Cocoa.framework */; };
+		C9CC97BF147FE66600EADF4F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9CC97BD147FE66600EADF4F /* InfoPlist.strings */; };
+		C9CC97C2147FE66600EADF4F /* TestCoreDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CC97C1147FE66600EADF4F /* TestCoreDataTests.m */; };
+		C9CC97CA147FE66600EADF4F /* TestCoreDataImporter.mdimporter in Resources */ = {isa = PBXBuildFile; fileRef = C9CC97C7147FE66600EADF4F /* TestCoreDataImporter.mdimporter */; };
+		C9CC97CC147FE66600EADF4F /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9CC97CB147FE66600EADF4F /* CoreServices.framework */; };
+		C9CC97CE147FE66600EADF4F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9CC97CD147FE66600EADF4F /* CoreFoundation.framework */; };
+		C9CC97D0147FE66600EADF4F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9CC97CF147FE66600EADF4F /* CoreData.framework */; };
+		C9CC97D2147FE66600EADF4F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9CC97D1147FE66600EADF4F /* Foundation.framework */; };
+		C9CC97D8147FE66600EADF4F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9CC97D6147FE66600EADF4F /* InfoPlist.strings */; };
+		C9CC97DA147FE66600EADF4F /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C9CC97D9147FE66600EADF4F /* main.c */; };
+		C9CC97DC147FE66600EADF4F /* GetMetadataForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CC97DB147FE66600EADF4F /* GetMetadataForFile.m */; };
+		C9CC97DF147FE66600EADF4F /* MySpotlightImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CC97DE147FE66600EADF4F /* MySpotlightImporter.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C9CC97B8147FE66600EADF4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9CC9787147FE66600EADF4F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C9CC978F147FE66600EADF4F;
+			remoteInfo = TestCoreData;
+		};
+		C9CC97C8147FE66600EADF4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9CC9787147FE66600EADF4F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C9CC97C6147FE66600EADF4F;
+			remoteInfo = TestCoreDataImporter;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C9CC9790147FE66600EADF4F /* TestCoreData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestCoreData.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9CC9794147FE66600EADF4F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		C9CC9797147FE66600EADF4F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		C9CC9798147FE66600EADF4F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		C9CC9799147FE66600EADF4F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C9CC979C147FE66600EADF4F /* TestCoreData-Info.plist */ = {isa = PBXFileReference; path = "TestCoreData-Info.plist"; sourceTree = "<group>"; };
+		C9CC979E147FE66600EADF4F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C9CC97A0147FE66600EADF4F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C9CC97A2147FE66600EADF4F /* TestCoreData-Prefix.pch */ = {isa = PBXFileReference; path = "TestCoreData-Prefix.pch"; sourceTree = "<group>"; };
+		C9CC97A4147FE66600EADF4F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		C9CC97A6147FE66600EADF4F /* SFAppDelegate.h */ = {isa = PBXFileReference; path = SFAppDelegate.h; sourceTree = "<group>"; };
+		C9CC97A7147FE66600EADF4F /* SFAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFAppDelegate.m; sourceTree = "<group>"; };
+		C9CC97AA147FE66600EADF4F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		C9CC97AD147FE66600EADF4F /* TestCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestCoreData.xcdatamodel; sourceTree = "<group>"; };
+		C9CC97B4147FE66600EADF4F /* TestCoreDataTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestCoreDataTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9CC97B5147FE66600EADF4F /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		C9CC97BC147FE66600EADF4F /* TestCoreDataTests-Info.plist */ = {isa = PBXFileReference; path = "TestCoreDataTests-Info.plist"; sourceTree = "<group>"; };
+		C9CC97BE147FE66600EADF4F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C9CC97C0147FE66600EADF4F /* TestCoreDataTests.h */ = {isa = PBXFileReference; path = TestCoreDataTests.h; sourceTree = "<group>"; };
+		C9CC97C1147FE66600EADF4F /* TestCoreDataTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestCoreDataTests.m; sourceTree = "<group>"; };
+		C9CC97C7147FE66600EADF4F /* TestCoreDataImporter.mdimporter */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestCoreDataImporter.mdimporter; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9CC97CB147FE66600EADF4F /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		C9CC97CD147FE66600EADF4F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		C9CC97CF147FE66600EADF4F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		C9CC97D1147FE66600EADF4F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C9CC97D5147FE66600EADF4F /* TestCoreDataImporter-Info.plist */ = {isa = PBXFileReference; path = "TestCoreDataImporter-Info.plist"; sourceTree = "<group>"; };
+		C9CC97D7147FE66600EADF4F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C9CC97D9147FE66600EADF4F /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		C9CC97DB147FE66600EADF4F /* GetMetadataForFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetMetadataForFile.m; sourceTree = "<group>"; };
+		C9CC97DD147FE66600EADF4F /* MySpotlightImporter.h */ = {isa = PBXFileReference; path = MySpotlightImporter.h; sourceTree = "<group>"; };
+		C9CC97DE147FE66600EADF4F /* MySpotlightImporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySpotlightImporter.m; sourceTree = "<group>"; };
+		C9CC97E0147FE66600EADF4F /* Importer Read Me.txt */ = {isa = PBXFileReference; path = "Importer Read Me.txt"; sourceTree = "<group>"; };
+		C9CC97E1147FE66600EADF4F /* TestCoreDataImporter-Prefix.pch */ = {isa = PBXFileReference; path = "TestCoreDataImporter-Prefix.pch"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C9CC978D147FE66600EADF4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9CC9795147FE66600EADF4F /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9CC97B0147FE66600EADF4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9CC97B6147FE66600EADF4F /* SenTestingKit.framework in Frameworks */,
+				C9CC97B7147FE66600EADF4F /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9CC97C4147FE66600EADF4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9CC97CC147FE66600EADF4F /* CoreServices.framework in Frameworks */,
+				C9CC97CE147FE66600EADF4F /* CoreFoundation.framework in Frameworks */,
+				C9CC97D0147FE66600EADF4F /* CoreData.framework in Frameworks */,
+				C9CC97D2147FE66600EADF4F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C9CC9785147FE66600EADF4F = {
+			isa = PBXGroup;
+			children = (
+				C9CC979A147FE66600EADF4F /* TestCoreData */,
+				C9CC97BA147FE66600EADF4F /* TestCoreDataTests */,
+				C9CC97D3147FE66600EADF4F /* TestCoreDataImporter */,
+				C9CC9793147FE66600EADF4F /* Frameworks */,
+				C9CC9791147FE66600EADF4F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C9CC9791147FE66600EADF4F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C9CC9790147FE66600EADF4F /* TestCoreData.app */,
+				C9CC97B4147FE66600EADF4F /* TestCoreDataTests.octest */,
+				C9CC97C7147FE66600EADF4F /* TestCoreDataImporter.mdimporter */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C9CC9793147FE66600EADF4F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C9CC9794147FE66600EADF4F /* Cocoa.framework */,
+				C9CC97B5147FE66600EADF4F /* SenTestingKit.framework */,
+				C9CC97CB147FE66600EADF4F /* CoreServices.framework */,
+				C9CC97CD147FE66600EADF4F /* CoreFoundation.framework */,
+				C9CC97CF147FE66600EADF4F /* CoreData.framework */,
+				C9CC97D1147FE66600EADF4F /* Foundation.framework */,
+				C9CC9796147FE66600EADF4F /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C9CC9796147FE66600EADF4F /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C9CC9797147FE66600EADF4F /* AppKit.framework */,
+				C9CC9798147FE66600EADF4F /* CoreData.framework */,
+				C9CC9799147FE66600EADF4F /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		C9CC979A147FE66600EADF4F /* TestCoreData */ = {
+			isa = PBXGroup;
+			children = (
+				C9CC97A6147FE66600EADF4F /* SFAppDelegate.h */,
+				C9CC97A7147FE66600EADF4F /* SFAppDelegate.m */,
+				C9CC97A9147FE66600EADF4F /* MainMenu.xib */,
+				C9CC97AC147FE66600EADF4F /* TestCoreData.xcdatamodeld */,
+				C9CC979B147FE66600EADF4F /* Supporting Files */,
+			);
+			path = TestCoreData;
+			sourceTree = "<group>";
+		};
+		C9CC979B147FE66600EADF4F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C9CC979C147FE66600EADF4F /* TestCoreData-Info.plist */,
+				C9CC979D147FE66600EADF4F /* InfoPlist.strings */,
+				C9CC97A0147FE66600EADF4F /* main.m */,
+				C9CC97A2147FE66600EADF4F /* TestCoreData-Prefix.pch */,
+				C9CC97A3147FE66600EADF4F /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C9CC97BA147FE66600EADF4F /* TestCoreDataTests */ = {
+			isa = PBXGroup;
+			children = (
+				C9CC97C0147FE66600EADF4F /* TestCoreDataTests.h */,
+				C9CC97C1147FE66600EADF4F /* TestCoreDataTests.m */,
+				C9CC97BB147FE66600EADF4F /* Supporting Files */,
+			);
+			path = TestCoreDataTests;
+			sourceTree = "<group>";
+		};
+		C9CC97BB147FE66600EADF4F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C9CC97BC147FE66600EADF4F /* TestCoreDataTests-Info.plist */,
+				C9CC97BD147FE66600EADF4F /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C9CC97D3147FE66600EADF4F /* TestCoreDataImporter */ = {
+			isa = PBXGroup;
+			children = (
+				C9CC97DB147FE66600EADF4F /* GetMetadataForFile.m */,
+				C9CC97DD147FE66600EADF4F /* MySpotlightImporter.h */,
+				C9CC97DE147FE66600EADF4F /* MySpotlightImporter.m */,
+				C9CC97E0147FE66600EADF4F /* Importer Read Me.txt */,
+				C9CC97D4147FE66600EADF4F /* Supporting Files */,
+			);
+			path = TestCoreDataImporter;
+			sourceTree = "<group>";
+		};
+		C9CC97D4147FE66600EADF4F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C9CC97D5147FE66600EADF4F /* TestCoreDataImporter-Info.plist */,
+				C9CC97D6147FE66600EADF4F /* InfoPlist.strings */,
+				C9CC97D9147FE66600EADF4F /* main.c */,
+				C9CC97E1147FE66600EADF4F /* TestCoreDataImporter-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C9CC978F147FE66600EADF4F /* TestCoreData */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9CC97E7147FE66600EADF4F /* Build configuration list for PBXNativeTarget "TestCoreData" */;
+			buildPhases = (
+				C9CC978C147FE66600EADF4F /* Sources */,
+				C9CC978D147FE66600EADF4F /* Frameworks */,
+				C9CC978E147FE66600EADF4F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C9CC97C9147FE66600EADF4F /* PBXTargetDependency */,
+			);
+			name = TestCoreData;
+			productName = TestCoreData;
+			productReference = C9CC9790147FE66600EADF4F /* TestCoreData.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C9CC97B3147FE66600EADF4F /* TestCoreDataTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9CC97EA147FE66600EADF4F /* Build configuration list for PBXNativeTarget "TestCoreDataTests" */;
+			buildPhases = (
+				C9CC97AF147FE66600EADF4F /* Sources */,
+				C9CC97B0147FE66600EADF4F /* Frameworks */,
+				C9CC97B1147FE66600EADF4F /* Resources */,
+				C9CC97B2147FE66600EADF4F /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C9CC97B9147FE66600EADF4F /* PBXTargetDependency */,
+			);
+			name = TestCoreDataTests;
+			productName = TestCoreDataTests;
+			productReference = C9CC97B4147FE66600EADF4F /* TestCoreDataTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+		C9CC97C6147FE66600EADF4F /* TestCoreDataImporter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9CC97E4147FE66600EADF4F /* Build configuration list for PBXNativeTarget "TestCoreDataImporter" */;
+			buildPhases = (
+				C9CC97C3147FE66600EADF4F /* Sources */,
+				C9CC97C4147FE66600EADF4F /* Frameworks */,
+				C9CC97C5147FE66600EADF4F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TestCoreDataImporter;
+			productName = TestCoreDataImporter;
+			productReference = C9CC97C7147FE66600EADF4F /* TestCoreDataImporter.mdimporter */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C9CC9787147FE66600EADF4F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = C9CC978A147FE66600EADF4F /* Build configuration list for PBXProject "TestCoreData" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C9CC9785147FE66600EADF4F;
+			productRefGroup = C9CC9791147FE66600EADF4F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C9CC978F147FE66600EADF4F /* TestCoreData */,
+				C9CC97B3147FE66600EADF4F /* TestCoreDataTests */,
+				C9CC97C6147FE66600EADF4F /* TestCoreDataImporter */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C9CC978E147FE66600EADF4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9CC979F147FE66600EADF4F /* InfoPlist.strings in Resources */,
+				C9CC97A5147FE66600EADF4F /* Credits.rtf in Resources */,
+				C9CC97AB147FE66600EADF4F /* MainMenu.xib in Resources */,
+				C9CC97CA147FE66600EADF4F /* TestCoreDataImporter.mdimporter in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9CC97B1147FE66600EADF4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9CC97BF147FE66600EADF4F /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9CC97C5147FE66600EADF4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9CC97D8147FE66600EADF4F /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C9CC97B2147FE66600EADF4F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C9CC978C147FE66600EADF4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9CC97A1147FE66600EADF4F /* main.m in Sources */,
+				C9CC97A8147FE66600EADF4F /* SFAppDelegate.m in Sources */,
+				C9CC97AE147FE66600EADF4F /* TestCoreData.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9CC97AF147FE66600EADF4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9CC97C2147FE66600EADF4F /* TestCoreDataTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9CC97C3147FE66600EADF4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9CC97DA147FE66600EADF4F /* main.c in Sources */,
+				C9CC97DC147FE66600EADF4F /* GetMetadataForFile.m in Sources */,
+				C9CC97DF147FE66600EADF4F /* MySpotlightImporter.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C9CC97B9147FE66600EADF4F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C9CC978F147FE66600EADF4F /* TestCoreData */;
+			targetProxy = C9CC97B8147FE66600EADF4F /* PBXContainerItemProxy */;
+		};
+		C9CC97C9147FE66600EADF4F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C9CC97C6147FE66600EADF4F /* TestCoreDataImporter */;
+			targetProxy = C9CC97C8147FE66600EADF4F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C9CC979D147FE66600EADF4F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9CC979E147FE66600EADF4F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C9CC97A3147FE66600EADF4F /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9CC97A4147FE66600EADF4F /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		C9CC97A9147FE66600EADF4F /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9CC97AA147FE66600EADF4F /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		C9CC97BD147FE66600EADF4F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9CC97BE147FE66600EADF4F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C9CC97D6147FE66600EADF4F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9CC97D7147FE66600EADF4F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C9CC97E2147FE66600EADF4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C9CC97E3147FE66600EADF4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C9CC97E5147FE66600EADF4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TestCoreDataImporter/TestCoreDataImporter-Prefix.pch";
+				INFOPLIST_FILE = "TestCoreDataImporter/TestCoreDataImporter-Info.plist";
+				INSTALL_PATH = "@executable_path/../Contents/Library/Spotlight";
+				LIBRARY_STYLE = BUNDLE;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = mdimporter;
+			};
+			name = Debug;
+		};
+		C9CC97E6147FE66600EADF4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TestCoreDataImporter/TestCoreDataImporter-Prefix.pch";
+				INFOPLIST_FILE = "TestCoreDataImporter/TestCoreDataImporter-Info.plist";
+				INSTALL_PATH = "@executable_path/../Contents/Library/Spotlight";
+				LIBRARY_STYLE = BUNDLE;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = mdimporter;
+			};
+			name = Release;
+		};
+		C9CC97E8147FE66600EADF4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TestCoreData/TestCoreData-Prefix.pch";
+				INFOPLIST_FILE = "TestCoreData/TestCoreData-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C9CC97E9147FE66600EADF4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TestCoreData/TestCoreData-Prefix.pch";
+				INFOPLIST_FILE = "TestCoreData/TestCoreData-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		C9CC97EB147FE66600EADF4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TestCoreData.app/Contents/MacOS/TestCoreData";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TestCoreData/TestCoreData-Prefix.pch";
+				INFOPLIST_FILE = "TestCoreDataTests/TestCoreDataTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		C9CC97EC147FE66600EADF4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TestCoreData.app/Contents/MacOS/TestCoreData";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TestCoreData/TestCoreData-Prefix.pch";
+				INFOPLIST_FILE = "TestCoreDataTests/TestCoreDataTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C9CC978A147FE66600EADF4F /* Build configuration list for PBXProject "TestCoreData" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9CC97E2147FE66600EADF4F /* Debug */,
+				C9CC97E3147FE66600EADF4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C9CC97E4147FE66600EADF4F /* Build configuration list for PBXNativeTarget "TestCoreDataImporter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9CC97E5147FE66600EADF4F /* Debug */,
+				C9CC97E6147FE66600EADF4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		C9CC97E7147FE66600EADF4F /* Build configuration list for PBXNativeTarget "TestCoreData" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9CC97E8147FE66600EADF4F /* Debug */,
+				C9CC97E9147FE66600EADF4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		C9CC97EA147FE66600EADF4F /* Build configuration list for PBXNativeTarget "TestCoreDataTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9CC97EB147FE66600EADF4F /* Debug */,
+				C9CC97EC147FE66600EADF4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C9CC97AC147FE66600EADF4F /* TestCoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C9CC97AD147FE66600EADF4F /* TestCoreData.xcdatamodel */,
+			);
+			currentVersion = C9CC97AD147FE66600EADF4F /* TestCoreData.xcdatamodel */;
+			path = TestCoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = C9CC9787147FE66600EADF4F /* Project object */;
+}
