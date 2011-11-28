@@ -8,7 +8,7 @@
 
 #import "SFAppDelegate.h"
 
-static const NSUInteger FROOB_COUNT = 50000;
+static const NSUInteger FROOB_COUNT = 7500;
 
 @interface SFAppDelegate ()
 
@@ -79,7 +79,8 @@ typedef void (^SFManagedObjectConfigBlock)(NSManagedObject *);
 
 
 - (void)scheduleBlocks {
-  _worker_queue = dispatch_queue_create("worker", DISPATCH_QUEUE_CONCURRENT);
+  _worker_queue = dispatch_queue_create("worker", DISPATCH_QUEUE_SERIAL);
+  dispatch_set_target_queue(_worker_queue, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0));
   
   dispatch_suspend(_worker_queue);
   _worker_group = dispatch_group_create();
@@ -88,26 +89,24 @@ typedef void (^SFManagedObjectConfigBlock)(NSManagedObject *);
   
   while( froobCount < FROOB_COUNT ) {
     if( ( random() % 100 ) < 10 ) {
-//      dispatch_group_async( _worker_group, worker_queue, ^{
-        dispatch_async( _worker_queue, ^{
-          NSLog( @"A" );
-//        NSUInteger count;
-//        NSUInteger sum;
-//        [self query:[self childManagedObjectContext] count:&count sum:&sum];
-//        NSLog( @"At this time there are %lu froobs totalling %lu", count, sum );
+      dispatch_group_async( _worker_group, _worker_queue, ^{
+        @autoreleasepool {
+          NSUInteger count;
+          NSUInteger sum;
+          [self query:[self childManagedObjectContext] count:&count sum:&sum];
+          NSLog( @"At this time there are %lu froobs totalling %lu", count, sum );
+        }
       });
     } else {
-//      dispatch_group_async( _worker_group, worker_queue, ^{
-      dispatch_async( _worker_queue, ^{
-        NSLog( @"B" );
-//        [self createObject:@"Froob" context:[self childManagedObjectContext] config:^(NSManagedObject *obj) {
-//          [obj setValue:[NSNumber numberWithInt:rand() % 10] forKey:@"value"];
-//        }];
+      dispatch_group_async( _worker_group, _worker_queue, ^{
+        @autoreleasepool {
+          [self createObject:@"Froob" context:[self childManagedObjectContext] config:^(NSManagedObject *obj) {
+            [obj setValue:[NSNumber numberWithInt:rand() % 10] forKey:@"value"];
+          }];
+        }
       });
       froobCount += 1;
     }
-    
-    usleep(100);
   }
   
   NSLog( @"All blocks submitted" );
@@ -119,7 +118,7 @@ typedef void (^SFManagedObjectConfigBlock)(NSManagedObject *);
   dispatch_async(_background_queue, ^{
     [self scheduleBlocks];
   });
-//  _timer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
+  _timer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
 }
 
 
