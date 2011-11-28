@@ -24,10 +24,14 @@ static const NSUInteger FROOB_COUNT = 10000;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize managedObjectContext = __managedObjectContext;
 
+static dispatch_queue_t background_queue;
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
   // Ensure the primary MOC (and the underlying store) are initialized
   (void)[self managedObjectContext];
+  
+  background_queue = dispatch_queue_create("background", DISPATCH_QUEUE_SERIAL);
 }
 
 typedef void (^ConfigBlock)(NSManagedObject *);
@@ -85,7 +89,7 @@ typedef void (^ConfigBlock)(NSManagedObject *);
 
 
 - (IBAction)goAction:(id)sender {
-  dispatch_async(dispatch_get_main_queue(), ^{
+  dispatch_async(background_queue, ^{
     [self scheduleBlocks];
     _timer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
   });
