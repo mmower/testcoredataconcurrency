@@ -34,10 +34,10 @@ static dispatch_queue_t background_queue;
   background_queue = dispatch_queue_create("background", DISPATCH_QUEUE_SERIAL);
 }
 
-typedef void (^ConfigBlock)(NSManagedObject *);
 
+typedef void (^SFManagedObjectConfigBlock)(NSManagedObject *);
 
-- (void)createObject:(NSString *)type context:(NSManagedObjectContext *)context config:(ConfigBlock)configBlock {
+- (void)createObject:(NSString *)type context:(NSManagedObjectContext *)context config:(SFManagedObjectConfigBlock)configBlock {
   NSManagedObject *newObject = [NSEntityDescription insertNewObjectForEntityForName:type inManagedObjectContext:context];
   configBlock( newObject );
   
@@ -46,6 +46,37 @@ typedef void (^ConfigBlock)(NSManagedObject *);
     NSLog( @"Save error: %@", [error localizedDescription] );
     [[NSException exceptionWithName:@"SaveException" reason:[error localizedDescription] userInfo:nil] raise];
   }
+}
+
+
+- (void)query:(NSManagedObjectContext *)context count:(NSUInteger*)pCount sum:(NSUInteger *)pSum {
+  NSError *error = nil;
+  
+  NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
+  [fetch setEntity:[NSEntityDescription entityForName:@"Froob" inManagedObjectContext:context]];
+  NSArray *results = [context executeFetchRequest:fetch error:&error];
+  if( !results ) {
+    NSLog( @"Query error: %@", [error localizedDescription] );
+    [[NSException exceptionWithName:@"FetchException" reason:[error localizedDescription] userInfo:nil] raise];
+  }
+  
+  NSUInteger sum = 0;
+  for( NSManagedObject *froob in results ) {
+    sum += [[froob valueForKey:@"value"] intValue];
+  }
+  
+  *pCount = [results count];
+  *pSum = sum;
+}
+
+
+- (NSUInteger)count:(NSString *)entityName error:(NSError **)error {
+  NSLog( @"Let's count the froobs" );
+  NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
+  [fetch setEntity:[NSEntityDescription entityForName:entityName inManagedObjectContext:[self managedObjectContext]]];
+  [fetch setIncludesSubentities:NO];
+  NSUInteger count = [[self managedObjectContext] countForFetchRequest:fetch error:error];
+  return count;  
 }
 
 
@@ -58,23 +89,10 @@ typedef void (^ConfigBlock)(NSManagedObject *);
   while( froobCount < FROOB_COUNT ) {
     if( ( random() % 100 ) < 10 ) {
       dispatch_group_async( _worker_group, worker_queue, ^{
-        NSError *error = nil;
-        NSManagedObjectContext *context = [self childManagedObjectContext];
-        
-        NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
-        [fetch setEntity:[NSEntityDescription entityForName:@"Froob" inManagedObjectContext:context]];
-        NSArray *results = [context executeFetchRequest:fetch error:&error];
-        if( !results ) {
-          NSLog( @"Query error: %@", [error localizedDescription] );
-          [[NSException exceptionWithName:@"FetchException" reason:[error localizedDescription] userInfo:nil] raise];
-        }
-        
-        NSUInteger sum = 0;
-        for( NSManagedObject *froob in results ) {
-          sum += [[froob valueForKey:@"value"] intValue];
-        }
-        
-        NSLog( @"At this time there are %lu froobs totalling %lu", [results count], sum );
+        NSUInteger count;
+        NSUInteger sum;
+        [self query:[self childManagedObjectContext] count:&count sum:&sum];
+        NSLog( @"At this time there are %lu froobs totalling %lu", count, sum );
       });
     } else {
       dispatch_group_async( _worker_group, worker_queue, ^{
@@ -92,17 +110,7 @@ typedef void (^ConfigBlock)(NSManagedObject *);
   dispatch_async(background_queue, ^{
     [self scheduleBlocks];
   });
-  _timer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
-}
-
-
-- (NSUInteger)count:(NSString *)entitiName error:(NSError **)error {
-  NSLog( @"Let's count the froobs" );
-  NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
-  [fetch setEntity:[NSEntityDescription entityForName:entitiName inManagedObjectContext:[self managedObjectContext]]];
-  [fetch setIncludesSubentities:NO];
-  NSUInteger count = [[self managedObjectContext] countForFetchRequest:fetch error:error];
-  return count;  
+//  _timer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
 }
 
 
@@ -143,7 +151,9 @@ typedef void (^ConfigBlock)(NSManagedObject *);
     NSUInteger count = [self count:@"Froob" error:&error];
     NSLog( @"Intermediate count = %lu", count );
     
-    [self createObject:@"Frobnosticator" context:[self managedObjectContext] config:^(NSManagedObject *obj){}];
+    [[self managedObjectContext] performBlockAndWait:^{
+      [self createObject:@"Frobnosticator" context:[self managedObjectContext] config:^(NSManagedObject *obj){}];
+    }];
   }
   
   NSLog( @"Leaving timer callback" );
@@ -176,56 +186,56 @@ typedef void (^ConfigBlock)(NSManagedObject *);
     Returns the persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. (The directory for the store is created, if necessary.)
  */
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
-    if (__persistentStoreCoordinator) {
-        return __persistentStoreCoordinator;
-    }
-
-    NSManagedObjectModel *mom = [self managedObjectModel];
-    if (!mom) {
-        NSLog(@"%@:%@ No model to generate a store from", [self class], NSStringFromSelector(_cmd));
-        return nil;
-    }
-
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
-    NSError *error = nil;
-    
-    NSDictionary *properties = [applicationFilesDirectory resourceValuesForKeys:[NSArray arrayWithObject:NSURLIsDirectoryKey] error:&error];
-        
-    if (!properties) {
-        BOOL ok = NO;
-        if ([error code] == NSFileReadNoSuchFileError) {
-            ok = [fileManager createDirectoryAtPath:[applicationFilesDirectory path] withIntermediateDirectories:YES attributes:nil error:&error];
-        }
-        if (!ok) {
-            [[NSApplication sharedApplication] presentError:error];
-            return nil;
-        }
-    }
-    else {
-        if ([[properties objectForKey:NSURLIsDirectoryKey] boolValue] != YES) {
-            // Customize and localize this error.
-            NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store application data, found a file (%@).", [applicationFilesDirectory path]]; 
-            
-            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-            [dict setValue:failureDescription forKey:NSLocalizedDescriptionKey];
-            error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:101 userInfo:dict];
-            
-            [[NSApplication sharedApplication] presentError:error];
-            return nil;
-        }
-    }
-  
-    
-    NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:@"TestCoreData.storedata"];
-    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
-    if (![coordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options:nil error:&error]) {
-        [[NSApplication sharedApplication] presentError:error];
-        return nil;
-    }
-    __persistentStoreCoordinator = coordinator;
-
+  if (__persistentStoreCoordinator) {
     return __persistentStoreCoordinator;
+  }
+  
+  NSManagedObjectModel *mom = [self managedObjectModel];
+  if (!mom) {
+    NSLog(@"%@:%@ No model to generate a store from", [self class], NSStringFromSelector(_cmd));
+    return nil;
+  }
+  
+  NSFileManager *fileManager = [NSFileManager defaultManager];
+  NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
+  NSError *error = nil;
+  
+  NSDictionary *properties = [applicationFilesDirectory resourceValuesForKeys:[NSArray arrayWithObject:NSURLIsDirectoryKey] error:&error];
+  
+  if (!properties) {
+    BOOL ok = NO;
+    if ([error code] == NSFileReadNoSuchFileError) {
+      ok = [fileManager createDirectoryAtPath:[applicationFilesDirectory path] withIntermediateDirectories:YES attributes:nil error:&error];
+    }
+    if (!ok) {
+      [[NSApplication sharedApplication] presentError:error];
+      return nil;
+    }
+  }
+  else {
+    if ([[properties objectForKey:NSURLIsDirectoryKey] boolValue] != YES) {
+      // Customize and localize this error.
+      NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store application data, found a file (%@).", [applicationFilesDirectory path]]; 
+      
+      NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+      [dict setValue:failureDescription forKey:NSLocalizedDescriptionKey];
+      error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:101 userInfo:dict];
+      
+      [[NSApplication sharedApplication] presentError:error];
+      return nil;
+    }
+  }
+  
+  
+  NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:@"TestCoreData.storedata"];
+  NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
+  if (![coordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options:nil error:&error]) {
+    [[NSApplication sharedApplication] presentError:error];
+    return nil;
+  }
+  __persistentStoreCoordinator = coordinator;
+  
+  return __persistentStoreCoordinator;
 }
 
 /**
@@ -233,23 +243,25 @@ typedef void (^ConfigBlock)(NSManagedObject *);
     bound to the persistent store coordinator for the application.) 
  */
 - (NSManagedObjectContext *)managedObjectContext {
-    if (__managedObjectContext) {
-        return __managedObjectContext;
-    }
-
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (!coordinator) {
-        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-        [dict setValue:@"Failed to initialize the store" forKey:NSLocalizedDescriptionKey];
-        [dict setValue:@"There was an error building up the data file." forKey:NSLocalizedFailureReasonErrorKey];
-        NSError *error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
-        [[NSApplication sharedApplication] presentError:error];
-        return nil;
-    }
-    __managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-    [__managedObjectContext setPersistentStoreCoordinator:coordinator];
-
+  if (__managedObjectContext) {
     return __managedObjectContext;
+  }
+  
+  NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+  if (!coordinator) {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setValue:@"Failed to initialize the store" forKey:NSLocalizedDescriptionKey];
+    [dict setValue:@"There was an error building up the data file." forKey:NSLocalizedFailureReasonErrorKey];
+    NSError *error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
+    [[NSApplication sharedApplication] presentError:error];
+    return nil;
+  }
+  __managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+  [__managedObjectContext performBlockAndWait:^{
+    [__managedObjectContext setPersistentStoreCoordinator:coordinator];
+  }];
+  
+  return __managedObjectContext;
 }
 
 - (NSManagedObjectContext *)childManagedObjectContext {
