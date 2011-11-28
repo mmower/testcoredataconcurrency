@@ -8,7 +8,7 @@
 
 #import "SFAppDelegate.h"
 
-static const NSUInteger FROOB_COUNT = 20000;
+static const NSUInteger FROOB_COUNT = 10000;
 
 @interface SFAppDelegate ()
 
@@ -28,6 +28,20 @@ static const NSUInteger FROOB_COUNT = 20000;
 {
   // Ensure the primary MOC (and the underlying store) are initialized
   (void)[self managedObjectContext];
+}
+
+typedef void (^ConfigBlock)(NSManagedObject *);
+
+
+- (void)createObject:(NSString *)type context:(NSManagedObjectContext *)context config:(ConfigBlock)configBlock {
+  NSManagedObject *newObject = [NSEntityDescription insertNewObjectForEntityForName:type inManagedObjectContext:context];
+  configBlock( newObject );
+  
+  NSError *error = nil;
+  if( ![context save:&error] ) {
+    NSLog( @"Save error: %@", [error localizedDescription] );
+    [[NSException exceptionWithName:@"SaveException" reason:[error localizedDescription] userInfo:nil] raise];
+  }
 }
 
 
@@ -60,16 +74,9 @@ static const NSUInteger FROOB_COUNT = 20000;
       });
     } else {
       dispatch_group_async( _worker_group, worker_queue, ^{
-        NSManagedObjectContext *context = [self childManagedObjectContext];
-        
-        NSManagedObject *froob = [NSEntityDescription insertNewObjectForEntityForName:@"Froob" inManagedObjectContext:context];
-        [froob setValue:[NSNumber numberWithInt:rand() % 10] forKey:@"value"];
-        
-        NSError *error = nil;
-        if( ![context save:&error] ) {
-          NSLog( @"Save error: %@", [error localizedDescription] );
-          [[NSException exceptionWithName:@"SaveException" reason:[error localizedDescription] userInfo:nil] raise];
-        }
+        [self createObject:@"Froob" context:[self childManagedObjectContext] config:^(NSManagedObject *obj) {
+          [obj setValue:[NSNumber numberWithInt:rand() % 10] forKey:@"value"];
+        }];
       });
       froobCount += 1;
     }
@@ -85,10 +92,10 @@ static const NSUInteger FROOB_COUNT = 20000;
 }
 
 
-- (NSUInteger)count:(NSError **)error {
+- (NSUInteger)count:(NSString *)entitiName error:(NSError **)error {
   NSLog( @"Let's count the froobs" );
   NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
-  [fetch setEntity:[NSEntityDescription entityForName:@"Froob" inManagedObjectContext:[self managedObjectContext]]];
+  [fetch setEntity:[NSEntityDescription entityForName:entitiName inManagedObjectContext:[self managedObjectContext]]];
   [fetch setIncludesSubentities:NO];
   NSUInteger count = [[self managedObjectContext] countForFetchRequest:fetch error:error];
   return count;  
@@ -99,7 +106,7 @@ static const NSUInteger FROOB_COUNT = 20000;
   [_timer invalidate];
 
   NSError *error = nil;
-  NSUInteger count = [self count:&error];
+  NSUInteger count = [self count:@"Froob" error:&error];
   if( count == NSNotFound ) {
     [[NSException exceptionWithName:@"FetchException" reason:[error localizedDescription] userInfo:nil] raise];
   }
@@ -109,11 +116,16 @@ static const NSUInteger FROOB_COUNT = 20000;
   } else {
     NSLog( @"All is well!!!!" );
   }
+  
+  count = [self count:@"Frobnosticator" error:&error];
+  if( count == NSNotFound ) {
+    [[NSException exceptionWithName:@"FetchException" reason:[error localizedDescription] userInfo:nil] raise];
+  }
+  NSLog( @"Also %lu Frobnisticators were created.", count );
 }
 
-#define COUNT_ON_MAIN_THREAD 1
-
 - (void)timerFired:(NSTimer *)timer {
+  NSError *error = nil;
   
   if( ![NSThread isMainThread] ) {
     [[NSException exceptionWithName:@"FooException" reason:@"Timer is not executing on main thread" userInfo:nil] raise];
@@ -127,11 +139,11 @@ static const NSUInteger FROOB_COUNT = 20000;
     NSLog( @"Finished waiting" );
     [self performSelectorOnMainThread:@selector(completeAction:) withObject:self waitUntilDone:NO];
   } else {
-#ifdef COUNT_ON_MAIN_THREAD
-    NSError *error = nil;
-    NSUInteger count = [self count:&error];
+    error = nil;
+    NSUInteger count = [self count:@"Froob" error:&error];
     NSLog( @"Intermediate count = %lu", count );
-#endif
+    
+    [self createObject:@"Frobnosticator" context:[self managedObjectContext] config:^(NSManagedObject *obj){}];
   }
 }
 
