@@ -8,7 +8,7 @@
 
 #import "SFAppDelegate.h"
 
-static const NSUInteger FROOB_COUNT = 10000;
+static const NSUInteger FROOB_COUNT = 5000;
 
 @interface SFAppDelegate ()
 
@@ -91,8 +91,8 @@ typedef void (^ConfigBlock)(NSManagedObject *);
 - (IBAction)goAction:(id)sender {
   dispatch_async(background_queue, ^{
     [self scheduleBlocks];
-    _timer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
   });
+  _timer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
 }
 
 
@@ -131,10 +131,6 @@ typedef void (^ConfigBlock)(NSManagedObject *);
 - (void)timerFired:(NSTimer *)timer {
   NSError *error = nil;
   
-  if( ![NSThread isMainThread] ) {
-    [[NSException exceptionWithName:@"FooException" reason:@"Timer is not executing on main thread" userInfo:nil] raise];
-  }
-  
   NSLog( @"Checking for all work blocks to have finished" );
   
   long blocks_waiting = dispatch_group_wait( _worker_group, DISPATCH_TIME_NOW );
@@ -149,6 +145,8 @@ typedef void (^ConfigBlock)(NSManagedObject *);
     
     [self createObject:@"Frobnosticator" context:[self managedObjectContext] config:^(NSManagedObject *obj){}];
   }
+  
+  NSLog( @"Leaving timer callback" );
 }
 
 /**
