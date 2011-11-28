@@ -8,7 +8,16 @@
 
 #import "SFAppDelegate.h"
 
+static const NSUInteger FROOB_COUNT = 20000;
+
+@interface SFAppDelegate ()
+
+- (NSManagedObjectContext *)childManagedObjectContext;
+
+@end
+
 @implementation SFAppDelegate
+
 
 @synthesize window = _window;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
@@ -17,7 +26,113 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-  // Insert code here to initialize your application
+  // Ensure the primary MOC (and the underlying store) are initialized
+  (void)[self managedObjectContext];
+}
+
+
+- (void)scheduleBlocks {
+  dispatch_queue_t worker_queue = dispatch_queue_create("worker", DISPATCH_QUEUE_CONCURRENT);
+  _worker_group = dispatch_group_create();
+  
+  NSUInteger froobCount = 0;
+  
+  while( froobCount < FROOB_COUNT ) {
+    if( ( random() % 100 ) < 10 ) {
+      dispatch_group_async( _worker_group, worker_queue, ^{
+        NSError *error = nil;
+        NSManagedObjectContext *context = [self childManagedObjectContext];
+        
+        NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
+        [fetch setEntity:[NSEntityDescription entityForName:@"Froob" inManagedObjectContext:context]];
+        NSArray *results = [context executeFetchRequest:fetch error:&error];
+        if( !results ) {
+          NSLog( @"Query error: %@", [error localizedDescription] );
+          [[NSException exceptionWithName:@"FetchException" reason:[error localizedDescription] userInfo:nil] raise];
+        }
+        
+        NSUInteger sum = 0;
+        for( NSManagedObject *froob in results ) {
+          sum += [[froob valueForKey:@"value"] intValue];
+        }
+        
+        NSLog( @"At this time there are %lu froobs totalling %lu", [results count], sum );
+      });
+    } else {
+      dispatch_group_async( _worker_group, worker_queue, ^{
+        NSManagedObjectContext *context = [self childManagedObjectContext];
+        
+        NSManagedObject *froob = [NSEntityDescription insertNewObjectForEntityForName:@"Froob" inManagedObjectContext:context];
+        [froob setValue:[NSNumber numberWithInt:rand() % 10] forKey:@"value"];
+        
+        NSError *error = nil;
+        if( ![context save:&error] ) {
+          NSLog( @"Save error: %@", [error localizedDescription] );
+          [[NSException exceptionWithName:@"SaveException" reason:[error localizedDescription] userInfo:nil] raise];
+        }
+      });
+      froobCount += 1;
+    }
+  }
+}
+
+
+- (IBAction)goAction:(id)sender {
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [self scheduleBlocks];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
+  });
+}
+
+
+- (NSUInteger)count:(NSError **)error {
+  NSLog( @"Let's count the froobs" );
+  NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
+  [fetch setEntity:[NSEntityDescription entityForName:@"Froob" inManagedObjectContext:[self managedObjectContext]]];
+  [fetch setIncludesSubentities:NO];
+  NSUInteger count = [[self managedObjectContext] countForFetchRequest:fetch error:error];
+  return count;  
+}
+
+
+- (void)completeAction:(id)sender {
+  [_timer invalidate];
+
+  NSError *error = nil;
+  NSUInteger count = [self count:&error];
+  if( count == NSNotFound ) {
+    [[NSException exceptionWithName:@"FetchException" reason:[error localizedDescription] userInfo:nil] raise];
+  }
+  
+  if( count != FROOB_COUNT ) {
+    NSLog( @"The FroobCount has failed %lu vs %lu", count, FROOB_COUNT );
+  } else {
+    NSLog( @"All is well!!!!" );
+  }
+}
+
+#define COUNT_ON_MAIN_THREAD 1
+
+- (void)timerFired:(NSTimer *)timer {
+  
+  if( ![NSThread isMainThread] ) {
+    [[NSException exceptionWithName:@"FooException" reason:@"Timer is not executing on main thread" userInfo:nil] raise];
+  }
+  
+  NSLog( @"Checking for all work blocks to have finished" );
+  
+  long blocks_waiting = dispatch_group_wait( _worker_group, DISPATCH_TIME_NOW );
+  NSLog( @"blocks waiting = %ld", blocks_waiting );
+  if( !blocks_waiting ) {
+    NSLog( @"Finished waiting" );
+    [self performSelectorOnMainThread:@selector(completeAction:) withObject:self waitUntilDone:NO];
+  } else {
+#ifdef COUNT_ON_MAIN_THREAD
+    NSError *error = nil;
+    NSUInteger count = [self count:&error];
+    NSLog( @"Intermediate count = %lu", count );
+#endif
+  }
 }
 
 /**
@@ -27,7 +142,7 @@
 
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSURL *libraryURL = [[fileManager URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] lastObject];
-    return [libraryURL URLByAppendingPathComponent:@"TestCoreData"];
+    return [[libraryURL URLByAppendingPathComponent:@"Application Support"] URLByAppendingPathComponent:@"TestCoreData"];
 }
 
 /**
@@ -86,6 +201,7 @@
             return nil;
         }
     }
+  
     
     NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:@"TestCoreData.storedata"];
     NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
@@ -116,10 +232,16 @@
         [[NSApplication sharedApplication] presentError:error];
         return nil;
     }
-    __managedObjectContext = [[NSManagedObjectContext alloc] init];
+    __managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     [__managedObjectContext setPersistentStoreCoordinator:coordinator];
 
     return __managedObjectContext;
+}
+
+- (NSManagedObjectContext *)childManagedObjectContext {
+  NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
+  [context setParentContext:[self managedObjectContext]];
+  return context;
 }
 
 /**

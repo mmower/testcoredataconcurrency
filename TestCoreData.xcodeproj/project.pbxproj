@@ -52,34 +52,34 @@
 		C9CC9797147FE66600EADF4F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		C9CC9798147FE66600EADF4F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C9CC9799147FE66600EADF4F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C9CC979C147FE66600EADF4F /* TestCoreData-Info.plist */ = {isa = PBXFileReference; path = "TestCoreData-Info.plist"; sourceTree = "<group>"; };
+		C9CC979C147FE66600EADF4F /* TestCoreData-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TestCoreData-Info.plist"; sourceTree = "<group>"; };
 		C9CC979E147FE66600EADF4F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C9CC97A0147FE66600EADF4F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C9CC97A2147FE66600EADF4F /* TestCoreData-Prefix.pch */ = {isa = PBXFileReference; path = "TestCoreData-Prefix.pch"; sourceTree = "<group>"; };
+		C9CC97A2147FE66600EADF4F /* TestCoreData-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TestCoreData-Prefix.pch"; sourceTree = "<group>"; };
 		C9CC97A4147FE66600EADF4F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		C9CC97A6147FE66600EADF4F /* SFAppDelegate.h */ = {isa = PBXFileReference; path = SFAppDelegate.h; sourceTree = "<group>"; };
+		C9CC97A6147FE66600EADF4F /* SFAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFAppDelegate.h; sourceTree = "<group>"; };
 		C9CC97A7147FE66600EADF4F /* SFAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFAppDelegate.m; sourceTree = "<group>"; };
 		C9CC97AA147FE66600EADF4F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		C9CC97AD147FE66600EADF4F /* TestCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestCoreData.xcdatamodel; sourceTree = "<group>"; };
 		C9CC97B4147FE66600EADF4F /* TestCoreDataTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestCoreDataTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9CC97B5147FE66600EADF4F /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		C9CC97BC147FE66600EADF4F /* TestCoreDataTests-Info.plist */ = {isa = PBXFileReference; path = "TestCoreDataTests-Info.plist"; sourceTree = "<group>"; };
+		C9CC97BC147FE66600EADF4F /* TestCoreDataTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TestCoreDataTests-Info.plist"; sourceTree = "<group>"; };
 		C9CC97BE147FE66600EADF4F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C9CC97C0147FE66600EADF4F /* TestCoreDataTests.h */ = {isa = PBXFileReference; path = TestCoreDataTests.h; sourceTree = "<group>"; };
+		C9CC97C0147FE66600EADF4F /* TestCoreDataTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestCoreDataTests.h; sourceTree = "<group>"; };
 		C9CC97C1147FE66600EADF4F /* TestCoreDataTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestCoreDataTests.m; sourceTree = "<group>"; };
 		C9CC97C7147FE66600EADF4F /* TestCoreDataImporter.mdimporter */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestCoreDataImporter.mdimporter; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9CC97CB147FE66600EADF4F /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		C9CC97CD147FE66600EADF4F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		C9CC97CF147FE66600EADF4F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C9CC97D1147FE66600EADF4F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C9CC97D5147FE66600EADF4F /* TestCoreDataImporter-Info.plist */ = {isa = PBXFileReference; path = "TestCoreDataImporter-Info.plist"; sourceTree = "<group>"; };
+		C9CC97D5147FE66600EADF4F /* TestCoreDataImporter-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TestCoreDataImporter-Info.plist"; sourceTree = "<group>"; };
 		C9CC97D7147FE66600EADF4F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C9CC97D9147FE66600EADF4F /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		C9CC97DB147FE66600EADF4F /* GetMetadataForFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetMetadataForFile.m; sourceTree = "<group>"; };
-		C9CC97DD147FE66600EADF4F /* MySpotlightImporter.h */ = {isa = PBXFileReference; path = MySpotlightImporter.h; sourceTree = "<group>"; };
+		C9CC97DD147FE66600EADF4F /* MySpotlightImporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MySpotlightImporter.h; sourceTree = "<group>"; };
 		C9CC97DE147FE66600EADF4F /* MySpotlightImporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySpotlightImporter.m; sourceTree = "<group>"; };
-		C9CC97E0147FE66600EADF4F /* Importer Read Me.txt */ = {isa = PBXFileReference; path = "Importer Read Me.txt"; sourceTree = "<group>"; };
-		C9CC97E1147FE66600EADF4F /* TestCoreDataImporter-Prefix.pch */ = {isa = PBXFileReference; path = "TestCoreDataImporter-Prefix.pch"; sourceTree = "<group>"; };
+		C9CC97E0147FE66600EADF4F /* Importer Read Me.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Importer Read Me.txt"; sourceTree = "<group>"; };
+		C9CC97E1147FE66600EADF4F /* TestCoreDataImporter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TestCoreDataImporter-Prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

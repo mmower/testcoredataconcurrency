@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="untitled.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="878" systemVersion="11C74" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Frobnosticator" syncable="YES">
+        <relationship name="froobs" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Froob" inverseName="frobnosticator" inverseEntity="Froob" syncable="YES"/>
+    </entity>
+    <entity name="Froob" syncable="YES">
+        <attribute name="value" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="frobnosticator" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Frobnosticator" inverseName="froobs" inverseEntity="Frobnosticator" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Frobnosticator" positionX="160" positionY="192" width="128" height="60"/>
+        <element name="Froob" positionX="160" positionY="192" width="128" height="75"/>
+    </elements>
 </model>
