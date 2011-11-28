@@ -8,7 +8,7 @@
 
 #import "SFAppDelegate.h"
 
-static const NSUInteger FROOB_COUNT = 5000;
+static const NSUInteger FROOB_COUNT = 50000;
 
 @interface SFAppDelegate ()
 
@@ -24,14 +24,12 @@ static const NSUInteger FROOB_COUNT = 5000;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize managedObjectContext = __managedObjectContext;
 
-static dispatch_queue_t background_queue;
-
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
   // Ensure the primary MOC (and the underlying store) are initialized
   (void)[self managedObjectContext];
   
-  background_queue = dispatch_queue_create("background", DISPATCH_QUEUE_SERIAL);
+  _background_queue = dispatch_queue_create("background", DISPATCH_QUEUE_SERIAL);
 }
 
 
@@ -81,33 +79,44 @@ typedef void (^SFManagedObjectConfigBlock)(NSManagedObject *);
 
 
 - (void)scheduleBlocks {
-  dispatch_queue_t worker_queue = dispatch_queue_create("worker", DISPATCH_QUEUE_CONCURRENT);
+  _worker_queue = dispatch_queue_create("worker", DISPATCH_QUEUE_CONCURRENT);
+  
+  dispatch_suspend(_worker_queue);
   _worker_group = dispatch_group_create();
   
   NSUInteger froobCount = 0;
   
   while( froobCount < FROOB_COUNT ) {
     if( ( random() % 100 ) < 10 ) {
-      dispatch_group_async( _worker_group, worker_queue, ^{
-        NSUInteger count;
-        NSUInteger sum;
-        [self query:[self childManagedObjectContext] count:&count sum:&sum];
-        NSLog( @"At this time there are %lu froobs totalling %lu", count, sum );
+//      dispatch_group_async( _worker_group, worker_queue, ^{
+        dispatch_async( _worker_queue, ^{
+          NSLog( @"A" );
+//        NSUInteger count;
+//        NSUInteger sum;
+//        [self query:[self childManagedObjectContext] count:&count sum:&sum];
+//        NSLog( @"At this time there are %lu froobs totalling %lu", count, sum );
       });
     } else {
-      dispatch_group_async( _worker_group, worker_queue, ^{
-        [self createObject:@"Froob" context:[self childManagedObjectContext] config:^(NSManagedObject *obj) {
-          [obj setValue:[NSNumber numberWithInt:rand() % 10] forKey:@"value"];
-        }];
+//      dispatch_group_async( _worker_group, worker_queue, ^{
+      dispatch_async( _worker_queue, ^{
+        NSLog( @"B" );
+//        [self createObject:@"Froob" context:[self childManagedObjectContext] config:^(NSManagedObject *obj) {
+//          [obj setValue:[NSNumber numberWithInt:rand() % 10] forKey:@"value"];
+//        }];
       });
       froobCount += 1;
     }
+    
+    usleep(100);
   }
+  
+  NSLog( @"All blocks submitted" );
+  dispatch_resume(_worker_queue);
 }
 
 
 - (IBAction)goAction:(id)sender {
-  dispatch_async(background_queue, ^{
+  dispatch_async(_background_queue, ^{
     [self scheduleBlocks];
   });
 //  _timer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];

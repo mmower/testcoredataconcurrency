@@ -11,6 +11,8 @@
 @interface SFAppDelegate : NSObject <NSApplicationDelegate> {
   NSTimer *_timer;
   dispatch_group_t _worker_group;
+  dispatch_queue_t _worker_queue;
+  dispatch_queue_t _background_queue;
 }
 
 @property (assign) IBOutlet NSWindow *window;
