@@ -24,12 +24,3 @@ somehow stops the queue as no more blocks are processed. Switching to using
 NSMainQueueConcurrencyType solved this problem. That's perhaps its purpose in
 life.
 
-One remaining issue is memory consumption. The memory footprint of the application
-should be relatively low yet even for 5000 objects it reaches >500MB and for
-20,000 it peaks at over 4GB and stabilises at 2.9GB. Given that the application
-should not be holding on to any references it suggests we are leaking somewhere.
-
-Seems we may also have a problem with the app beachballing if you try and interact
-with it.
-
-
